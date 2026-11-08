@@ -130,4 +130,6 @@ Ouvrir puis exécuter l'un des trois notebooks de haut en bas. Les poids entraî
 
 ## Licence
 
-À compléter (par exemple MIT). Le jeu de données UK-DALE est soumis à sa propre licence : consulter les conditions d'utilisation du dataset.
+Ce projet est distribué sous licence MIT. Voir le fichier [LICENSE](LICENSE).
+
+Le jeu de données UK-DALE n'est pas inclus dans ce dépôt et reste soumis à sa propre licence.
