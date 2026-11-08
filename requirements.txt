@@ -1,0 +1,22 @@
+# Core libraries used by the notebooks
+numpy
+pandas
+matplotlib
+scikit-learn
+torch
+
+# Jupyter
+notebook
+ipykernel
+
+# Packages nilmtk needs to read UK-DALE (nilmtk itself is installed with --no-deps)
+scipy
+tables
+networkx
+pyyaml
+six
+future
+
+# nilmtk and nilm_metadata are installed from GitHub, without their pinned dependencies:
+#   pip install --no-deps git+https://github.com/nilmtk/nilm_metadata.git
+#   pip install --no-deps git+https://github.com/nilmtk/nilmtk.git
