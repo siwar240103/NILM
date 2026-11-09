@@ -1,4 +1,4 @@
-# Unknown-Appliance Detection in NILM with Autoencoders (UK-DALE)
+# Unknown-Appliance Detection in NILM with Autoencoders
 
 This repository compares three autoencoders — **USAD**, **VAE** and **GRU-AE** — on a **novelty detection** task in non-intrusive load monitoring (NILM): can a model trained only on *known* appliances detect, through its reconstruction error, the appearance of an **unknown appliance** in the aggregate signal?
 
