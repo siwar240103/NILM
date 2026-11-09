@@ -70,57 +70,7 @@ The test period is split into three equal sub-periods: (1) known aggregate only,
 | GRU-AE | 0.098 | 0.995 | 0.026 | 0.808 | 0.730 |
 
 All three models detect the novel appliance well (ROC-AUC > 0.96). The "low-power" case is the hardest, as expected. PR-AUC remains modest because only ~6% of windows are positive: it should be read against that base rate.
-
-> A new run may give slightly different values (GPU non-determinism).
-
-## Installation
-
-### Requirements
-
-- Python 3.9+
-- UK-DALE converted to HDF5 for NILMTK (`ukdale.h5`)
-- PyTorch, NumPy, pandas, scikit-learn, matplotlib
-- `nilmtk` and `nilm_metadata`, installed from GitHub (without their pinned dependencies):
-
-```bash
-pip install -q --no-deps git+https://github.com/nilmtk/nilm_metadata.git
-pip install -q --no-deps git+https://github.com/nilmtk/nilmtk.git
-```
-
-A GPU speeds up training but is optional.
-
-### Environment variables
-
-| Variable | Purpose | Default |
-|---|---|---|
-| `UKDALE_H5_PATH` | Path to `ukdale.h5` | Kaggle path if present, otherwise `data/ukdale.h5` |
-| `OUTPUT_DIR` | Output folder (models, figures) | `/kaggle/working` on Kaggle, otherwise `outputs/` |
-
-### Running
-
-```bash
-export UKDALE_H5_PATH=/path/to/ukdale.h5
-jupyter notebook
-```
-
-Open and run any of the three notebooks from top to bottom. The trained weights are saved in `OUTPUT_DIR` (`usad_nilm_model.pth`, `vae_nilm_model.pth`, `gruae_nilm_model.pth`).
-
-**On Kaggle**: attach the UK-DALE dataset, turn Internet on (to install `nilmtk`) and, if desired, enable a GPU.
-
-## Limitations to keep in mind
-
-- **Thresholds are chosen on labeled test data.** ROC-AUC and PR-AUC do not depend on a threshold, but FPR, TPR, F1 and accuracy at thresholds 1 and 2 are **optimistic**. A more rigorous protocol would select the threshold on a separate labeled validation period.
-- **Validation is not independent.** The train/validation split is a random permutation of heavily overlapping sliding windows (200 samples, stride 5): the validation loss is therefore not a faithful estimate of generalization.
-- **Narrow setting.** A single house, a synthetic aggregate of three known appliances, only two novel appliances, and hand-chosen ON thresholds (fridge freezer 50 W, washing machine 20 W, dish washer 20 W, kettle 2000 W, microwave 200 W).
-- **Single run per model.** One seed, one training run: differences of about 0.01 ROC-AUC between models may not be significant.
-- **VAE particularity.** In `reparameterize`, the standard deviation is computed with `exp(0.05 · logvar)` instead of the standard `exp(0.5 · logvar)` assumed by the KL term. The results above were obtained with 0.05 (`KL_WEIGHT = 0.01`); switching to 0.5 gives a standard VAE and requires re-running the experiment.
-
-## Possible improvements
-
-- Select thresholds on a dedicated validation period
-- Repeat the experiments over several seeds and several UK-DALE houses
-- Add more novel appliances and other combinations of known appliances
-- Split train/validation by time blocks instead of a random permutation
+-determinism).
 
 ## References
 
